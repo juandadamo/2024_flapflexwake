@@ -61,20 +61,24 @@ class caso_drag():
             dir_im = filei_im.split('/')[0]
             if os.path.isdir(dir_im) == False:
                 os.mkdir(os.getcwd()+'/'+dir_im)
-            if os.path.isfile(filei_im) == False:
+
+            x1s  = find_peaks(np.abs(FF_FD),prominence=1000)
+            index_peak = np.nonzero(freq[x1s[0]]>10)[0]
+            f_peak = freq[x1s[0]][index_peak]
+            f_peaks.append(f_peak)
+
+            if os.path.isfile(filei_im+'.png') == False:
             
                 fig,ax = plt.subplots()
                 ax.semilogy(freq,np.abs(FF_FD))
-                x1s  = find_peaks(np.abs(FF_FD),prominence=1000)
-                index_peak = np.nonzero(freq[x1s[0]]>10)[0]
-                f_peak = freq[x1s[0]][index_peak]
+
                 ax.plot(f_peak,np.abs(FF_FD)[x1s[0][index_peak]],'ro')
                 ax.set_xlim([1,40])
                 ax.grid()
 
                 plt.savefig(filei_im+'.png')
                 plt.close(fig)
-            f_peaks.append(f_peak)
+
         self.strouhal_freq = f_peaks
         
         
