@@ -48,23 +48,39 @@ class caso_drag():
         self.df = data_files
         self.index_casos = index_casos
         self.index_casos0 = index_casos_0
+    def fft_filei(self,filei):
+        FD_raw = pd.read_csv(filei).iloc[:,3].to_numpy()
+        FF_FD = np.fft.fft(FD_raw)
+        freq = np.fft.fftfreq(len(FD_raw),1/80)
+        self.fft_freq = freq
+        self.fft_FD = FF_FD
     def freq_strouhal(self):
         data_files = self.df[self.index_casos]
         f_peaks = []
         for i, casoi in enumerate(data_files.itertuples()):
             filei = casoi.file
-            FD_raw = pd.read_csv(filei).iloc[:,3].to_numpy() 
-            FF_FD = np.fft.fft(FD_raw)
-            freq = np.fft.fftfreq(len(FD_raw),1/80)
+            self.fft_filei(filei)
+
+            #FD_raw = pd.read_csv(filei).iloc[:,3].to_numpy()
+            FF_FD = self.fft_FD
+            freq = self.fft_freq
             
             filei_im = filei.replace('medidas','medidas_im')
             dir_im = filei_im.split('/')[0]
             if os.path.isdir(dir_im) == False:
                 os.mkdir(os.getcwd()+'/'+dir_im)
 
-            x1s  = find_peaks(np.abs(FF_FD),prominence=1000)
-            index_peak = np.nonzero(freq[x1s[0]]>10)[0]
-            f_peak = freq[x1s[0]][index_peak]
+            #x1s  = find_peaks(np.abs(FF_FD),prominence=1000)
+            #index_peak = np.nonzero(freq[x1s[0]]>10)[0]
+            #f_peak = freq[x1s[0]][index_peak]
+
+            f_peak = np.array([])
+            prom_0 = 1e4
+            while f_peak.size<1:
+                x1s  = find_peaks(np.abs(FF_FD),prominence=prom_0)
+                index_peak = np.nonzero(freq[x1s[0]]>10)[0]
+                f_peak = freq[x1s[0]][index_peak]
+                prom_0 = prom_0*.75
             f_peaks.append(f_peak)
 
             if os.path.isfile(filei_im+'.png') == False:
