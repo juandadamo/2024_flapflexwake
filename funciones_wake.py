@@ -14,6 +14,37 @@ D = 5e-2
 Sf = Lspan  * D
 scale_force = 1/241  # de gramo a newton  
 
+
+class caso_fast_cam:
+    def __init__(self,path):
+        self.path = path
+        self.files = np.sort(glob.glob(path+'/*.tif'))
+        self.coords_img = 1
+        self.mean = 1
+        self.std = 1
+        self.fftvec0 = 1
+        self.fftvec1 = 1
+        self.freqs = 1
+        self.fmax0 = 1
+        self.fmax1 = 1
+        self.escala0 = 1
+        self.escala1 = 1
+        self.delta_0 = 1
+        self.delta_1 = 1
+        self.angulo_cuerpo0 = 1
+        self.angulo_cuerpo1 = 1
+        self.deltas = 1
+    def img_manual(self):
+        self.escala0 = 1
+        self.escala1 = 1
+        self.delta_0 = 1
+        self.delta_1 = 1
+        self.angulo_cuerpo0 = 1
+        self.angulo_cuerpo1 = 1
+        self.deltas = 1
+        self.complex_num_0 = 1
+        self.complex_num_1 = 1
+
 class caso_drag():
     def __init__(self,lista_files):
         lista_files_temp  =  np.zeros_like(lista_files) 
