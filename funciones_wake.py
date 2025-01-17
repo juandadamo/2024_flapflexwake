@@ -8,6 +8,7 @@ import scipy as sc
 import sympy as sp
 import numpy as np
 from scipy.signal import find_peaks
+from scipy.ndimage import rotate
 rho = 1.2
 Lspan = 35e-2
 D = 5e-2
@@ -34,6 +35,7 @@ class caso_fast_cam:
         self.angulo_cuerpo0 = 1
         self.angulo_cuerpo1 = 1
         self.deltas = 1
+        self.img2 = 1
     def img_manual(self):
         self.escala0 = 1
         self.escala1 = 1
@@ -193,3 +195,25 @@ def B_flexion (lstuart,rho,th):
 def read_cd_csv(file):
     Cd_t = pd.read_csv(file).iloc[:,3].to_numpy()
     return Cd_t.mean()
+
+
+### la rotacion de la imagen es desde el centro de coordenadas
+### asi podemos recuperar la rotacion de puntos xy
+def rot(image, xy, angle):
+    im_rot = rotate(image,angle)
+    org_center = (np.array(image.shape[:2][::-1])-1)/2.
+    rot_center = (np.array(im_rot.shape[:2][::-1])-1)/2.
+    org = xy-org_center
+    a = np.deg2rad(angle)
+    new = np.array([org[0]*np.cos(a) + org[1]*np.sin(a),
+            -org[0]*np.sin(a) + org[1]*np.cos(a) ])
+    return im_rot, new+rot_center
+def rot_point(image, xy, angle):
+    im_rot = rotate(image,angle)
+    org_center = (np.array(image.shape[:2][::-1])-1)/2.
+    rot_center = (np.array(im_rot.shape[:2][::-1])-1)/2.
+    org = xy-org_center
+    a = np.deg2rad(angle)
+    new = np.array([org[0]*np.cos(a) + org[1]*np.sin(a),
+            -org[0]*np.sin(a) + org[1]*np.cos(a) ])
+    return new+rot_center
