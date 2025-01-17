@@ -27,6 +27,8 @@ class caso_fast_cam:
         self.angulo_cuerpo0 = 1
         self.angulo_cuerpo1 = 1
         self.deltas = 1
+        self.complex_num_0_rot = 1
+        self.complex_num_1_rot = 1
     def img_manual(self):
         self.escala0 = 1
         self.escala1 = 1
