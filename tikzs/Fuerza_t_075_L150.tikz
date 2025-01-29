@@ -1,0 +1,43 @@
+% This file was created with tikzplotlib v0.10.1.
+\begin{tikzpicture}
+
+\definecolor{darkgray176}{RGB}{176,176,176}
+\definecolor{steelblue31119180}{RGB}{31,119,180}
+
+\begin{axis}[
+tick align=outside,
+tick pos=left,
+x grid style={darkgray176},
+xlabel={\(\displaystyle u_\infty\) [ m/s]},
+xmajorgrids,
+xmin=3.46924, xmax=5.13596,
+xtick style={color=black},
+y grid style={darkgray176},
+ylabel={\(\displaystyle s\propto F_D\)},
+ymajorgrids,
+ymin=27.7027253333333, ymax=57.7149713333334,
+ytick style={color=black}
+]
+\addplot [semithick, steelblue31119180, mark=square, mark size=3, mark options={solid,fill opacity=0}, only marks]
+table {%
+3.545 29.0669183333333
+3.545 29.1400683333334
+3.7344 31.4019583333333
+3.7344 32.4280333333335
+3.9238 34.4999183333334
+3.9238 34.9475883333334
+4.1132 37.7284383333333
+4.1132 38.1383783333333
+4.3026 41.3029733333334
+4.3026 41.1816033333333
+4.492 45.2667383333333
+4.492 44.3826533333333
+4.6814 49.1507933333334
+4.6814 47.8737983333333
+4.8708 52.3913683333334
+4.8708 51.3350133333333
+5.0602 56.3507783333334
+};
+\end{axis}
+
+\end{tikzpicture}
