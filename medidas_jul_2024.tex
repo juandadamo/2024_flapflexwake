@@ -1,0 +1,71 @@
+\documentclass[12pt,a4paper,twocolumn]{article}
+%\usepackage{psfrag}
+\usepackage{tikz} % gestion de dessin directe
+\usepackage{pgfplotstable, environ,subcaption,caption,framed,xspace,enumitem}
+\usepackage{hyperref}
+\usetikzlibrary{arrows,positioning}
+\usetikzlibrary{plotmarks,matrix}
+\usepackage{pgfplots,siunitx,multicol}
+\pgfplotsset{compat=newest}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,mathrsfs,bm,cancel,geometry}
+\usepackage{MnSymbol}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11}
+%\usepackage[spanish]{babel}
+\usetikzlibrary{backgrounds,arrows.meta,external,babel,math,patterns,patterns.meta,calc,decorations.pathmorphing,decorations.markings, decorations.pathreplacing,shapes,fillbetween}
+
+\begin{document}
+Force signals can be acquired from the sensor integrated into the Arduino  system with a sampling frequency of \SI{80}{\hertz}. An example of such a signal is shown on Figure \ref{fig:FD_typical}. A dominant frequency and a mean value can be determined in order to characterize the dynamics of the Dshape body. For a set of velocities in the wind tunnel and a value of thickness (rigidity) and length $L = 1.50 D$ of the flexible plates, we   display the behavior of the signals which are proportional to the drag force in Figure \ref{fig:FD_series_crude}. Values must be corrected by subtracting those corresponding to the mounting structure. Nevertheless, by scaling the former with $u_\infty^2$, we can obtain magnitudes proportional to the drag coefficient $C_D$ as presented in Figure \ref{fig:CD}.
+
+The determination fo the main frequencies in the force signals is obtained through Fourier analysis. Figure \ref{fig:FD_fourier}. shows the power spectral density of the signal as a function of the frequencies of the reference case, where there is no flexible flaps mounted on the body. Taking an order value of $St=0.2=f_{vs}D/u_\infty$, for $D=\SI{50}{\milli\meter}$ and $u_\infty=\SI{3.5}{\meter/\second}$, the vortex shedding frequency results $f_{vs}=\SI{14}{\hertz}$. Inspecting Figure \ref{fig:FD_fourier}, we can compare with the maximum peak found at $f_{\max}=\SI{12.67}{\hertz}$.
+
+Fast camera images were recorded at a sampling frequency of $ \SI{250}{\micro\second}$. A particular snapshot is shown on Figure \ref{fig:snapshot} where we can determine the elastic deformation. produced by the flow. We are particularly interested in following the trailing edges displacement, so we can produce a stack of images for each time of acquisition at the regions of interest. The result is displayed on Figure \ref{fig:stack} where we can study the fluctuations, their frequency and compare with those produce by the forces on the body.
+
+	\begin{figure}
+	\centering\resizebox{.495\textwidth}{!}{%
+		\input{	tikzs/signal_force.tikz}}
+	\caption{A typical signal for the force measurements.}\label{fig:FD_typical}
+\end{figure}
+ 
+	\begin{figure}
+			\centering\resizebox{.495\textwidth}{!}{%
+		\input{tikzs/Fuerza_t_075_L150.tikz}}
+		\caption{A series of time averaged force measurements for $t=75$, $L=1.50 D$}\label{fig:FD_series_crude}
+	\end{figure}
+	
+		\begin{figure}
+		\centering\resizebox{.495\textwidth}{!}{%
+			\input{tikzs/CD_t_075_L150.tikz}}
+		\caption{$C_D$ estimation for $t=75$, $L=1.50 D$}\label{fig:CD}
+	\end{figure}
+		\begin{figure}
+		\centering\resizebox{.495\textwidth}{!}{%
+			\input{tikzs/Fourier_t_0_L0_V40.tikz}}
+		\caption{FFT of s. $t=0$, $L=0 D$, $U = 3.5m/s$}\label{fig:FD_fourier}
+	\end{figure}
+	
+			\begin{figure}
+		\centering\resizebox{.495\textwidth}{!}{%
+			\input{tikzs/Fourier_t_075_L150_V40.tikz}}
+		\caption{FFT of s. $t=75$, $L=1.50 D$, $U = 3.5m/s$}
+	\end{figure}
+	\begin{figure} 
+		\includegraphics[width=0.6\textwidth]{	tikzs/def_075_L150_V40.pdf}	
+ 
+	\caption{Snapshot for the body with  flexible plates..}\label{fig:snapshot}
+\end{figure}
+
+	\begin{figure}\begin{subfigure}{.49\textwidth}
+		\includegraphics[width=0.9\textwidth]{tikzs/stack_t075_L150_V40_a}	
+		\caption{}
+		\end{subfigure}
+		\begin{subfigure}{.49\textwidth}
+		\includegraphics[width=0.9\textwidth]{tikzs/stack_t075_L150_V40_b}	
+			\caption{}
+		\end{subfigure}
+		\caption{Stack of images for the trailing edge of the flexible plates.}\label{fig:stack}
+	\end{figure}
+	
+\end{document}
