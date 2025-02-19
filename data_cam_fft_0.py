@@ -20,6 +20,7 @@ class caso_fast_cam:
         self.freqs = 1
 fsampling = 250
 lista_cam = np.sort(glob.glob('/media/juan/JUAN_PMMH/LFD/photron/dshape*'))
+lista_cam = np.sort(glob.glob('/media/juan/juan_win/photron/feb2025/*'))
 lista_casos = [s for s in lista_cam if "_v0_" not in s]
 
 lista_write =  np.sort(glob.glob('/home/juan/Documents/script_python/2024_flapflexwake/fastcam_coords/*.csv'))
@@ -30,11 +31,11 @@ dirout = '/home/juan/Documents/script_python/2024_flapflexwake/fastcam_coords/'
 
 fig,ax = plt.subplots()
 ncomienzo = 0
-nfin = -1
+nfin = 0
 
-for i,filei in enumerate(lista_casos[ncomienzo:nfin]):
+for i,filei in enumerate(lista_casos[:]):
     casoi = caso_fast_cam(filei)
-
+    #raise ValueError()
     filein = dirout + filei.split('/')[-1]+'.csv'
     nameout = filein.replace('.csv','.pickle')
     if os.path.isfile(nameout) == False:
@@ -74,16 +75,5 @@ for i,filei in enumerate(lista_casos[ncomienzo:nfin]):
         with open(nameout, 'wb') as handle:
             pickle.dump(casoi, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-#
-#
-#
-# #plt.imshow(imgs_1.mean(0))#+casoi.mean)
-#
-# #Imgs = np.fft.fft(imgs_0,axis=0)
-#
-# #fig,ax1 = plt.subplots(2,1)
-#ax1[0].imshow(img)
-#ax1[1].imshow(im0)
-#plt.show()
-#plt.close(fig)
+
 print('fin')

@@ -541,9 +541,18 @@ class caso_drag_f():
             data_files.at[i,'index_file_ref'] = index_file_ref_i
             filei_ref = data_files['file'][index_casos_0].to_numpy()[index_file_ref_i]
             data_files.at[i,'file_ref'] = filei_ref
+
+            ti = float(filei.split('e_e')[1].split('_')[0])
+            Li = float(filei.split('_L')[1].split('_')[0])/100
+            filei_ref = 'medidas/zeros/'+filei.split('/')[1].split('_delta')[0]+'_deltaV0.csv'
+            FD_raw_ref = pd.read_csv(filei_ref,header=None).to_numpy().mean()
+            #data_files.at[i,'file_ref'] = filei_ref
             FD_raw = read_cd_csv(filei)
-            FD_raw_ref = read_cd_csv(filei_ref)
+
             data_files.at[i,'FD_m'] = (FD_raw -FD_raw_ref)*scale_force
+
+
+
         self.df = data_files
         self.index_casos = index_casos
         self.index_casos0 = index_casos_0
