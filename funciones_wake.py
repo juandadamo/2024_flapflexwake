@@ -22,6 +22,21 @@ y1_50 = 37
 y1_75 = 50
 nu = 15e-6
 
+
+rho = 1.2
+Lspan= 35e-2
+D = 5e-2
+Sf = Lspan*D
+nu = 15e-6
+scale_force = 1/241  # de gramo a newton  
+g = 9.8
+rho_50 = 1305
+rho_75 = 1902
+y1_50 = 37e-3
+y1_75 = 50e-3
+Largos  = np.array([0.75,1,1.25,1.5])
+escala0 = 1/475  #px/
+# escala0=1.5
 class caso_fast_cam:
     def __init__(self,path):
         self.path = path
